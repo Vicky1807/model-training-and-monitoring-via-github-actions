@@ -77,23 +77,6 @@ jobs:
           echo "prod_accuracy=$ACC" >> "$GITHUB_OUTPUT"
           echo "prod_auc=$AUC" >> "$GITHUB_OUTPUT"
 
-      - name: Comment prod metrics on pull request
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const acc = '${{ steps.parse-metrics.outputs.prod_accuracy }}';
-            const auc = '${{ steps.parse-metrics.outputs.prod_auc }}';
-
-            const prNumber = context.issue.number;
-
-            let body = '✅ Prod training workflow completed.';
-            if (acc || auc) {
-              body += '\n\n**Prod evaluation metrics**';
-              if (acc) body += `\n- Accuracy: ${acc}`;
-              if (auc) body += `\n- AUC: ${auc}`;
-            } else {
-              body += '\n\nMetrics could not be parsed from logs. Check the Azure Machine Learning job run for details.';
-            }
 
             await github.rest.issues.createComment({
               owner: context.repo.owner,
