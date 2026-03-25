@@ -61,12 +61,30 @@ jobs:
         id: parse-metrics
         run: |
           if [ ! -f training_output.log ]; then
+            echo "ERROR: training_output.log not found"
             echo "dev_accuracy=" >> "$GITHUB_OUTPUT"
             echo "dev_auc=" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          ACC=$(grep -o "Accuracy: .*" training_output.log | tail -n 1 | awk '{print $2}') || true
-          AUC=$(grep -o "AUC: .*" training_output.log | tail -n 1 | awk '{print $2}') || true
+          
+          echo "=== File exists, showing content ===" 
+          wc -l training_output.log
+          echo "=== First 50 lines ===" 
+          head -n 50 training_output.log
+          echo "=== Last 50 lines ===" 
+          tail -n 50 training_output.log
+          echo "=== Searching for Accuracy ===" 
+          grep -i "accuracy" training_output.log || echo "No 'accuracy' found"
+          echo "=== Searching for AUC ===" 
+          grep -i "auc" training_output.log || echo "No 'AUC' found"
+          
+          # Extract metrics - handle both formats
+          ACC=$(grep "^Accuracy:" training_output.log | tail -n 1 | awk '{print $2}') || ACC=""
+          AUC=$(grep "^AUC:" training_output.log | tail -n 1 | awk '{print $2}') || AUC=""
+          
+          echo "DEBUG: Extracted ACC='$ACC'"
+          echo "DEBUG: Extracted AUC='$AUC'"
+          
           echo "dev_accuracy=$ACC" >> "$GITHUB_OUTPUT"
           echo "dev_auc=$AUC" >> "$GITHUB_OUTPUT"
 
