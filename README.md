@@ -159,3 +159,6 @@ az provider register --namespace Microsoft.MachineLearningServices
 4. Use explicit authentication tokens for API calls
 5. YAML indentation matters - use consistent spacing
 6. Check Azure resource provider registration before deployment
+
+<img width="1280" height="724" alt="image" src="https://github.com/user-attachments/assets/28295e28-90f8-4ff0-8d7e-e3be047dcd71" />
+
