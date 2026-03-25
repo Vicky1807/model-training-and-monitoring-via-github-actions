@@ -22,7 +22,7 @@ This project implements an end-to-end machine learning workflow with:
 ## How It Works
 
 ### 1. Development Environment (Dev Training)
-When you open a pull request:
+When you open a pull request in src/job.yml file:
 1. GitHub Actions automatically triggers the training workflow
 2. Model trains in Azure ML using dev environment
 3. Metrics (Accuracy, AUC) are extracted from logs
@@ -30,8 +30,8 @@ When you open a pull request:
 
 ### 2. Production Deployment
 After code review and approval:
-1. Comment `@azure-ml deploy-prod` on the PR
-2. Model is automatically deployed to production
+1. Comment `/train-prod` on the PR, model will be trained in prod env, after Approval from a registered reviewer.
+2. Comment `/deploy-prod` on the PR. Model will be deployed to production, after Approval from a registered reviewer.
 3. Online endpoint becomes available for predictions
 
 ### 3. Model Testing
