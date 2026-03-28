@@ -79,8 +79,8 @@ def eval_model(model, X_test, y_test):
     plt.xlabel('False Positive Rate')
     plt.ylabel('True Positive Rate')
     plt.title('ROC Curve')
-    plt.savefig("ROC-Curve.png")
-    mlflow.log_artifact("ROC-Curve.png")    
+    plt.savefig("ROC-Curve1.png")
+    mlflow.log_artifact("ROC-Curve1.png")    
 
 def parse_args():
     # setup arg parser
